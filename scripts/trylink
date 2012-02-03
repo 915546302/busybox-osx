@@ -85,9 +85,11 @@ LDLIBS="$7"
 # The --sort-section option is not supported by older versions of ld
 SORT_SECTION=`check_cc "-Wl,--sort-section,alignment" ""`
 
-START_GROUP="-Wl,--start-group"
-END_GROUP="-Wl,--end-group"
-INFO_OPTS="-Wl,--warn-common -Wl,-Map,$EXE.map -Wl,--verbose"
+#START_GROUP="-Wl,--start-group"
+#END_GROUP="-Wl,--end-group"
+START_GROUP=""
+END_GROUP=""
+INFO_OPTS=""
 
 # gold may not support --sort-common (yet)
 SORT_COMMON=`check_cc "-Wl,--sort-common" ""`
@@ -241,7 +243,7 @@ if test "$CONFIG_BUILD_LIBBUSYBOX" = y; then
 	cat $EXE.out
 	exit 1
     }
-    $STRIP -s --remove-section=.note --remove-section=.comment $EXE -o "$sharedlib_dir/libbusybox.so.$BB_VER"
+#    $STRIP -s --remove-section=.note --remove-section=.comment $EXE -o "$sharedlib_dir/libbusybox.so.$BB_VER"
     chmod a+x "$sharedlib_dir/libbusybox.so.$BB_VER"
     echo "libbusybox: $sharedlib_dir/libbusybox.so.$BB_VER"
 fi
@@ -262,7 +264,7 @@ if test "$CONFIG_FEATURE_SHARED_BUSYBOX" = y; then
 	cat $EXE.out
 	exit 1
     }
-    $STRIP -s --remove-section=.note --remove-section=.comment $EXE -o "$sharedlib_dir/busybox"
+#  $STRIP -s --remove-section=.note --remove-section=.comment $EXE -o "$sharedlib_dir/busybox"
     echo "busybox linked against libbusybox: $sharedlib_dir/busybox"
 fi
 
@@ -292,14 +294,13 @@ int main(int argc, char **argv)
 		$SORT_SECTION \
 		$GC_SECTIONS \
 		-L"$sharedlib_dir" -lbusybox \
-		-Wl,--warn-common \
 	|| {
 	    echo "Linking $EXE failed"
 	    cat $EXE.out
 	    exit 1
 	}
 	rm -- "$sharedlib_dir/applet.c" $EXE.out
-	$STRIP -s --remove-section=.note --remove-section=.comment $EXE
+#	$STRIP -s --remove-section=.note --remove-section=.comment $EXE
 
     done <applet_lst.tmp
 fi

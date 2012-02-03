@@ -385,7 +385,7 @@ struct test_statics {
 };
 
 /* See test_ptr_hack.c */
-extern struct test_statics *const test_ptr_to_statics;
+static struct test_statics *const test_ptr_to_statics;
 
 #define S (*test_ptr_to_statics)
 #define args            (S.args         )

@@ -142,9 +142,9 @@
    || defined(__APPLE__)
 # include <sys/resource.h>  /* rlimit */
 # include <machine/endian.h>
-# define bswap_64 __bswap64
-# define bswap_32 __bswap32
-# define bswap_16 __bswap16
+# define bswap_64 __builtin_bswap64
+# define bswap_32 __builtin_bswap32
+# define bswap_16 __builtin_bswap16
 #else
 # include <byteswap.h>
 # include <endian.h>
@@ -343,14 +343,14 @@ typedef unsigned smalluint;
 #define HAVE_CLEARENV 1
 #define HAVE_FDATASYNC 1
 #define HAVE_DPRINTF 1
-#define HAVE_MEMRCHR 1
+#undef HAVE_MEMRCHR
 #define HAVE_MKDTEMP 1
 #define HAVE_PTSNAME_R 1
 #define HAVE_SETBIT 1
 #define HAVE_SIGHANDLER_T 1
 #define HAVE_STPCPY 1
 #define HAVE_STRCASESTR 1
-#define HAVE_STRCHRNUL 1
+#undef HAVE_STRCHRNUL
 #define HAVE_STRSEP 1
 #define HAVE_STRSIGNAL 1
 #define HAVE_STRVERSCMP 1

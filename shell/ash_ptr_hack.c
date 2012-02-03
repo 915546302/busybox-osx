@@ -13,9 +13,9 @@ struct globals_var;
 
 /* We cheat here. They are declared as const ptr in ash.c,
  * but here we make them live in R/W memory */
-struct globals_misc     *ash_ptr_to_globals_misc;
-struct globals_memstack *ash_ptr_to_globals_memstack;
-struct globals_var      *ash_ptr_to_globals_var;
+struct globals_misc     *const ash_ptr_to_globals_misc;
+struct globals_memstack *const ash_ptr_to_globals_memstack;
+struct globals_var      *const ash_ptr_to_globals_var;
 
 #else
 

@@ -257,7 +257,7 @@ quiet_cmd_link_o_target = LD      $@
 # If the list of objects to link is empty, just create an empty built-in.o
 cmd_link_o_target = $(if $(strip $(obj-y)),\
 		$(LD) $(ld_flags) -r -o $@ $(filter $(obj-y), $^),\
-		rm -f $@; $(AR) rcs $@)
+		rm -f $@; echo>$(basename $@).c; $(CC) -c $(basename $@).c -o $@)
 
 $(builtin-target): $(obj-y) FORCE
 	$(call if_changed,link_o_target)
@@ -270,7 +270,7 @@ endif # builtin-target
 #
 ifdef lib-target
 quiet_cmd_link_l_target = AR      $@
-cmd_link_l_target = rm -f $@; $(AR) $(EXTRA_ARFLAGS) rcs $@ $(lib-y)
+cmd_link_l_target = rm -f $@; $(AR) $(EXTRA_ARFLAGS) -r -c -s $@ $(lib-y)
 
 $(lib-target): $(lib-y) FORCE
 	$(call if_changed,link_l_target)

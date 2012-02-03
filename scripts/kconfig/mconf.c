@@ -463,10 +463,12 @@ static int exec_conf(void)
 
 	signal(SIGINT, SIG_DFL);
 
+#ifdef SIGWINCH
 	sa.sa_handler = winch_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGWINCH, &sa, NULL);
+#endif
 
 	*argptr++ = NULL;
 

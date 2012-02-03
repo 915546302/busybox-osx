@@ -27,11 +27,11 @@ generate()
 		# rules re handling of "\n" in echo params.
 		printf "%s\n" "${header}"
 		# print everything up to INSERT line
-		sed -n '/^INSERT$/ q; p' "${src}"
+		gsed -n '/^INSERT$/ q; p' "${src}"
 		# copy stdin to stdout
 		cat
 		# print everything after INSERT line
-		sed -n '/^INSERT$/ { :l; n; p; bl }' "${src}"
+		gsed -n '/^INSERT$/ { :l; n; p; bl }' "${src}"
 	} >"${dst}.tmp"
 	if ! cmp -s "${dst}" "${dst}.tmp"; then
 		gen "${dst}"
@@ -42,7 +42,7 @@ generate()
 }
 
 # (Re)generate include/applets.h
-sed -n 's@^//applet:@@p' "$srctree"/*/*.c "$srctree"/*/*/*.c \
+gsed -n 's@^//applet:@@p' "$srctree"/*/*.c "$srctree"/*/*/*.c \
 | generate \
 	"$srctree/include/applets.src.h" \
 	"include/applets.h" \
@@ -52,7 +52,7 @@ sed -n 's@^//applet:@@p' "$srctree"/*/*.c "$srctree"/*/*/*.c \
 # We add line continuation backslash after each line,
 # and insert empty line before each line which doesn't start
 # with space or tab
-sed -n -e 's@^//usage:\([ \t].*\)$@\1 \\@p' -e 's@^//usage:\([^ \t].*\)$@\n\1 \\@p' \
+gsed -n -e 's@^//usage:\([ \t].*\)$@\1 \\@p' -e 's@^//usage:\([^ \t].*\)$@\n\1 \\@p' \
 	"$srctree"/*/*.c "$srctree"/*/*/*.c \
 | generate \
 	"$srctree/include/usage.src.h" \
@@ -70,7 +70,7 @@ sed -n -e 's@^//usage:\([ \t].*\)$@\1 \\@p' -e 's@^//usage:\([^ \t].*\)$@\n\1 \\
 	if test -f "$src"; then
 		mkdir -p -- "$d" 2>/dev/null
 
-		sed -n 's@^//kbuild:@@p' "$srctree/$d"/*.c \
+		gsed -n 's@^//kbuild:@@p' "$srctree/$d"/*.c \
 		| generate \
 			"${src}" "${dst}" \
 			"# DO NOT EDIT. This file is generated from Kbuild.src"
@@ -81,7 +81,7 @@ sed -n -e 's@^//usage:\([ \t].*\)$@\1 \\@p' -e 's@^//usage:\([^ \t].*\)$@\n\1 \\
 	if test -f "$src"; then
 		mkdir -p -- "$d" 2>/dev/null
 
-		sed -n 's@^//config:@@p' "$srctree/$d"/*.c \
+		gsed -n 's@^//config:@@p' "$srctree/$d"/*.c \
 		| generate \
 			"${src}" "${dst}" \
 			"# DO NOT EDIT. This file is generated from Config.src"

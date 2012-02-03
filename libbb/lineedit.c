@@ -159,7 +159,7 @@ struct lineedit_statics {
 };
 
 /* See lineedit_ptr_hack.c */
-extern struct lineedit_statics *const lineedit_ptr_to_statics;
+static struct lineedit_statics *const lineedit_ptr_to_statics;
 
 #define S (*lineedit_ptr_to_statics)
 #define state            (S.state           )

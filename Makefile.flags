@@ -17,13 +17,13 @@ CPPFLAGS += \
 	$(if $(CONFIG_LFS),-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64) \
 	-D"BB_VER=KBUILD_STR($(BB_VER))" -DBB_BT=AUTOCONF_TIMESTAMP
 
-CFLAGS += $(call cc-option,-Wall,)
+#CFLAGS += $(call cc-option,-Wall,)
 CFLAGS += $(call cc-option,-Wshadow,)
 CFLAGS += $(call cc-option,-Wwrite-strings,)
 CFLAGS += $(call cc-option,-Wundef,)
 CFLAGS += $(call cc-option,-Wstrict-prototypes,)
-CFLAGS += $(call cc-option,-Wunused -Wunused-parameter,)
-CFLAGS += $(call cc-option,-Wunused-function -Wunused-value,)
+#CFLAGS += $(call cc-option,-Wunused -Wunused-parameter,)
+#CFLAGS += $(call cc-option,-Wunused-function -Wunused-value,)
 CFLAGS += $(call cc-option,-Wmissing-prototypes -Wmissing-declarations,)
 # warn about C99 declaration after statement
 CFLAGS += $(call cc-option,-Wdeclaration-after-statement,)
@@ -98,7 +98,7 @@ CFLAGS += $(strip $(subst ",,$(CONFIG_EXTRA_CFLAGS)))
 endif
 
 ifneq ($(CONFIG_CROSS_COMPILER_PREFIX),"arm-linux-androideabi-")
-LDLIBS += m crypt
+LDLIBS += m #crypt
 else
 # Android libc has no crypt. TODO: make a generic CONFIG_LINK_WITH_CRYPT option?
 LDLIBS += m

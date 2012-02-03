@@ -330,7 +330,7 @@ struct globals_misc {
 	pid_t backgndpid;        /* pid of last background process */
 	smallint job_warning;    /* user was warned about stopped jobs (can be 2, 1 or 0). */
 };
-extern struct globals_misc *const ash_ptr_to_globals_misc;
+static struct globals_misc *ash_ptr_to_globals_misc;
 #define G_misc (*ash_ptr_to_globals_misc)
 #define rootpid     (G_misc.rootpid    )
 #define shlvl       (G_misc.shlvl      )
@@ -1364,7 +1364,7 @@ struct globals_memstack {
 	int    herefd; // = -1;
 	struct stack_block stackbase;
 };
-extern struct globals_memstack *const ash_ptr_to_globals_memstack;
+static struct globals_memstack *const ash_ptr_to_globals_memstack;
 #define G_memstack (*ash_ptr_to_globals_memstack)
 #define g_stackp     (G_memstack.g_stackp    )
 #define markp        (G_memstack.markp       )
@@ -1933,7 +1933,7 @@ struct globals_var {
 	struct var *vartab[VTABSIZE];
 	struct var varinit[ARRAY_SIZE(varinit_data)];
 };
-extern struct globals_var *const ash_ptr_to_globals_var;
+static struct globals_var *const ash_ptr_to_globals_var;
 #define G_var (*ash_ptr_to_globals_var)
 #define shellparam    (G_var.shellparam   )
 //#define redirlist     (G_var.redirlist    )
@@ -8501,9 +8501,10 @@ evaltree(union node *n, int flags)
 }
 
 #if !defined(__alpha__) || (defined(__GNUC__) && __GNUC__ >= 3)
-static
+//static
 #endif
-void evaltreenr(union node *, int) __attribute__ ((alias("evaltree"),__noreturn__));
+//void evaltreenr(union node *, int) __attribute__ ((alias("evaltree"),__noreturn__));
+#define evaltreenr evaltree
 
 static void
 evalloop(union node *n, int flags)

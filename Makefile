@@ -289,8 +289,8 @@ MAKEFLAGS += -rR
 # Make variables (CC, etc...)
 
 AS		= $(CROSS_COMPILE)as
-CC		= $(CROSS_COMPILE)gcc
-LD		= $(CC) -nostdlib
+CC		= $(CROSS_COMPILE)gcc -fnested-functions
+LD		= $(CROSS_COMPILE)gcc -nostdlib
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -478,14 +478,10 @@ libs-y		:= \
 		loginutils/ \
 		mailutils/ \
 		miscutils/ \
-		modutils/ \
 		networking/ \
-		networking/libiproute/ \
-		networking/udhcp/ \
 		printutils/ \
 		procps/ \
 		runit/ \
-		selinux/ \
 		shell/ \
 		sysklogd/ \
 		util-linux/ \
@@ -719,8 +715,8 @@ busybox: busybox_unstripped
 ifeq ($(SKIP_STRIP),y)
 	$(Q)cp $< $@
 else
-	$(Q)$(STRIP) -s --remove-section=.note --remove-section=.comment \
-		busybox_unstripped -o $@
+#	$(Q)$(STRIP) -s --remove-section=.note --remove-section=.comment \
+#		busybox_unstripped -o $@
 # strip is confused by PIE executable and does not set exec bits
 	$(Q)chmod a+x $@
 endif
