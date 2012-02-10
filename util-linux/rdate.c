@@ -66,9 +66,9 @@ int rdate_main(int argc UNUSED_PARAM, char **argv)
 		time(&current_time);
 		if (current_time == remote_time)
 			bb_error_msg("current time matches remote time");
-		else
+		//		else
 		  //			if (stime(&remote_time) < 0)
-				bb_perror_msg_and_die("can't set time of day");
+		  //		bb_perror_msg_and_die("can't set time of day");
 	}
 
 	if ((flags & 1) == 0)

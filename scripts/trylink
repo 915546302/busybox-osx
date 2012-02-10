@@ -80,7 +80,8 @@ CFLAGS="$3"
 LDFLAGS="$4"
 O_FILES="$5"
 A_FILES="$6"
-LDLIBS="$7"
+#LDLIBS="$7"
+LDLIBS=
 
 # The --sort-section option is not supported by older versions of ld
 SORT_SECTION=`check_cc "-Wl,--sort-section,alignment" ""`

@@ -469,7 +469,6 @@ libs-y		:= \
 		coreutils/ \
 		coreutils/libcoreutils/ \
 		debianutils/ \
-		e2fsprogs/ \
 		editors/ \
 		findutils/ \
 		init/ \
@@ -479,13 +478,11 @@ libs-y		:= \
 		mailutils/ \
 		miscutils/ \
 		networking/ \
-		printutils/ \
 		procps/ \
 		runit/ \
 		shell/ \
 		sysklogd/ \
 		util-linux/ \
-		util-linux/volume_id/ \
 
 endif # KBUILD_EXTMOD
 
@@ -715,8 +712,7 @@ busybox: busybox_unstripped
 ifeq ($(SKIP_STRIP),y)
 	$(Q)cp $< $@
 else
-#	$(Q)$(STRIP) -s --remove-section=.note --remove-section=.comment \
-#		busybox_unstripped -o $@
+	$(Q)$(STRIP) busybox_unstripped -o $@
 # strip is confused by PIE executable and does not set exec bits
 	$(Q)chmod a+x $@
 endif
