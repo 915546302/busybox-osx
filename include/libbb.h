@@ -136,7 +136,12 @@
 
 /* Some libc's forget to declare these, do it ourself */
 
+#if defined(__APPLE__)
+#include <crt_externs.h>
+#define environ (*_NSGetEnviron()) 
+#else
 extern char **environ;
+#endif
 #if defined(__GLIBC__) && __GLIBC__ < 2
 int vdprintf(int d, const char *format, va_list ap);
 #endif

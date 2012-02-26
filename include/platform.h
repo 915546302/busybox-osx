@@ -132,7 +132,6 @@
 # endif
 #endif
 
-
 /* ---- Endian Detection ------------------------------------ */
 
 #include <limits.h>
